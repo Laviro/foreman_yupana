@@ -21,5 +21,7 @@ module RhCloudHost
     scoped_search :relation => :inventory_sync_status_object, :on => :status, :rename => :insights_inventory_sync_status,
       :complete_value => { :disconnect => ::InventorySync::InventoryStatus::DISCONNECT,
                            :sync => ::InventorySync::InventoryStatus::SYNC }
+
+    scoped_search :relation => :insights, :on => :uuid, :only_explicit => true, :rename => :insights_uuid
   end
 end
