@@ -19,7 +19,11 @@ export const getInsightsSyncSettings = () => async dispatch => {
         },
       },
     });
-  } catch ({ message }) {
+  } catch (err) {
+    const { message } = err;
+    if (err?.response?.status === 422) {
+      throw new Error(message, { cause: err });
+    }
     dispatch(
       addToast({
         sticky: true,

@@ -107,7 +107,13 @@ module ForemanRhCloud
 
           # Adding a sub menu after hosts menu
           divider :top_menu, caption: N_('Insights'), parent: :configure_menu
-          menu :top_menu, :inventory_upload, caption: N_('Inventory Upload'), url: '/foreman_rh_cloud/inventory_upload', url_hash: { controller: :react, action: :index }, parent: :configure_menu
+          menu :top_menu,
+            :inventory_upload,
+            caption: N_('Inventory Upload'),
+            url: '/foreman_rh_cloud/inventory_upload',
+            url_hash: { controller: :react, action: :index },
+            parent: :configure_menu,
+            if: -> { !SETTINGS[:insights][:use_insights_on_premise] }
           menu :top_menu, :insights_hits, caption: N_('Recommendations'), url: '/foreman_rh_cloud/insights_cloud', url_hash: { controller: :react, action: :index }, parent: :configure_menu
 
           register_facet InsightsFacet, :insights do

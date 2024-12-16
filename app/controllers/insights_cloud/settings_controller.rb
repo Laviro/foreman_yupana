@@ -1,6 +1,12 @@
 module InsightsCloud
   class SettingsController < ::ApplicationController
     def show
+      if SETTINGS[:insights][:use_insights_on_premise]
+        render json: {
+          error: _('This Foreman is configured to use Insights on Premise. Syncing to Insights Cloud is disabled.'),
+        }, status: :unprocessable_entity
+        return
+      end
       render_setting(:insightsSyncEnabled, :allow_auto_insights_sync)
     end
 
