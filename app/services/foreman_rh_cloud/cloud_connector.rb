@@ -13,12 +13,12 @@ module ForemanRhCloud
       composer = nil
 
       input = {
-        :satellite_cloud_connector_user => service_user.login,
-        :satellite_cloud_connector_password => token_value,
+        :cloud_connector_user => service_user.login,
+        :cloud_connector_password => token_value,
       }
 
       if (http_proxy = ForemanRhCloud.proxy_setting(logger: Foreman::Logging.logger('app')))
-        input[:satellite_cloud_connector_http_proxy] = http_proxy
+        input[:cloud_connector_http_proxy] = http_proxy
       end
 
       Taxonomy.as_taxonomy(target_host.organization, target_host.location) do
