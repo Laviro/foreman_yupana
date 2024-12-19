@@ -9,7 +9,7 @@ exports[`SyncButton rendering render with Props 1`] = `
     size="lg"
     variant="secondary"
   >
-     Sync inventory status
+     Sync all inventory status
   </Button>
 </Fragment>
 `;

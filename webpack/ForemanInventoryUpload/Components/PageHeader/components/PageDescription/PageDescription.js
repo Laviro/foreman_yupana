@@ -34,7 +34,9 @@ export const PageDescription = () => (
           'To manually upload the data for a specific organization, select an organization and click {restartButtonName}.'
         )}
         values={{
-          restartButtonName: <strong>{__('Restart')}</strong>,
+          restartButtonName: (
+            <strong>{__('Generate and upload report')}</strong>
+          ),
         }}
       />
     </Text>
