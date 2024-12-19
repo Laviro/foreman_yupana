@@ -15,7 +15,7 @@ for how to install Foreman plugins
 
 #### Inventory upload
 
-In UI: Configure -> Inventory Upload -> Restart
+In UI: Configure -> Inventory Upload -> Generate and upload report 
 
 From command-line:
 
@@ -46,7 +46,7 @@ From command-line:
 
 #### Synchronize inventory status
 
-In UI: Configure -> Inventory Upload -> Sync inventory status
+In UI: Configure -> Inventory Upload -> Sync all inventory status
 
 From command-line:
 

@@ -30,7 +30,7 @@ exports[`PageDescription rendering render without Props 1`] = `
       values={
         Object {
           "restartButtonName": <strong>
-            Restart
+            Generate and upload report
           </strong>,
         }
       }

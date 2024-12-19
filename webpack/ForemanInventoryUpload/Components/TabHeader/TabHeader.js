@@ -19,7 +19,7 @@ const TabHeader = ({ exitCode, onRestart, onDownload, toggleFullScreen }) => (
             onClick={onRestart}
             disabled={isExitCodeLoading(exitCode)}
           >
-            {__('Restart')}
+            {__('Generate and upload report')}
           </Button>
         ) : null}
         {onDownload ? (
