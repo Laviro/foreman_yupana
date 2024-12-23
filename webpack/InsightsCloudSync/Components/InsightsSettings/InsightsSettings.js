@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { translate as __ } from 'foremanReact/common/I18n';
 import SwitcherPF4 from '../../../common/Switcher/SwitcherPF4';
+import { InsightsConfigContext } from '../../InsightsCloudSync';
 import './insightsSettings.scss';
 
 const InsightsSettings = ({
@@ -9,23 +10,25 @@ const InsightsSettings = ({
   getInsightsSyncSettings,
   setInsightsSyncEnabled,
 }) => {
-  const [isOnPrem, setIsOnPrem] = useState(false);
+  const { isLocalInsightsAdvisor, setIsLocalInsightsAdvisor } = useContext(
+    InsightsConfigContext
+  );
   useEffect(() => {
     async function fetchData() {
       try {
         await getInsightsSyncSettings();
       } catch (err) {
         if (err.cause?.response?.status === 422) {
-          setIsOnPrem(true);
+          setIsLocalInsightsAdvisor(true);
         } else {
           throw err;
         }
       }
     }
     fetchData();
-  }, [getInsightsSyncSettings, setInsightsSyncEnabled]);
+  }, [getInsightsSyncSettings, setIsLocalInsightsAdvisor]);
 
-  if (isOnPrem) return null;
+  if (isLocalInsightsAdvisor) return null;
 
   return (
     <div className="insights_settings">

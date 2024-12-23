@@ -31,10 +31,11 @@ export const hasPlaybookFormatter = ({ title: hasPlaybook }) => ({
 });
 
 export const actionsFormatter = (props, { rowData = {} }) => {
-  const { recommendationUrl, accessRHUrl } = rowData;
+  const { recommendationUrl, accessRHUrl, isLocalInsightsAdvisor } = rowData;
   const dropdownItems = [];
 
   recommendationUrl &&
+    !isLocalInsightsAdvisor &&
     dropdownItems.push(
       <DropdownItem key="recommendation-url">
         <a href={recommendationUrl} target="_blank" rel="noopener noreferrer">

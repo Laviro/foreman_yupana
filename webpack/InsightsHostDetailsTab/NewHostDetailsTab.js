@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from 'foremanReact/components/SearchBar';
@@ -21,11 +21,13 @@ import {
   selectHits,
 } from '../InsightsCloudSync/Components/InsightsTable/InsightsTableSelectors';
 import { redHatAdvisorSystems } from '../InsightsCloudSync/InsightsCloudSyncHelpers';
+import { InsightsConfigContext } from '../InsightsCloudSync/InsightsCloudSync';
 
 const NewHostDetailsTab = ({ hostName, router }) => {
   const dispatch = useDispatch();
   const query = useSelector(selectSearch);
   const hits = useSelector(selectHits);
+  const { isLocalInsightsAdvisor } = useContext(InsightsConfigContext);
 
   useEffect(() => () => router.replace({ search: null }), [router]);
 
@@ -41,7 +43,7 @@ const NewHostDetailsTab = ({ hostName, router }) => {
     </DropdownItem>,
   ];
 
-  if (hits.length) {
+  if (hits.length && !isLocalInsightsAdvisor) {
     const { host_uuid: uuid } = hits[0];
     dropdownItems.push(
       <DropdownItem key="insights-advisor-link" ouiaId="insights-advisor-link">
