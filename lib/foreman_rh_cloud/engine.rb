@@ -112,6 +112,7 @@ module ForemanRhCloud
 
           register_facet InsightsFacet, :insights do
             configure_host do
+              api_view :list => 'api/v2/hosts/insights/insights'
               set_dependent_action :destroy
             end
           end
@@ -148,6 +149,12 @@ module ForemanRhCloud
         ::Katello::UINotifications::Subscriptions::ManifestImportSuccess.include ForemanInventoryUpload::Notifications::ManifestImportSuccessNotificationOverride if defined?(Katello)
 
         ::Host::Managed.include RhCloudHost
+      end
+    end
+
+    initializer "foreman_rh_cloud.add_rabl_view_path" do
+      Rabl.configure do |config|
+        config.view_paths << ForemanRhCloud::Engine.root.join('app', 'views')
       end
     end
 

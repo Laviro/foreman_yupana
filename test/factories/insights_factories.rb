@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :insights_facet do
-    # sequence(:uuid) { |n| "uuid-#{n}" }
+    sequence(:uuid) { |n| "uuid-#{n}" }
 
     trait :with_hits do
       hits do
