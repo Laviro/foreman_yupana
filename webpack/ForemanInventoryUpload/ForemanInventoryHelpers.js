@@ -13,7 +13,7 @@ export const getInventoryDocsUrl = () =>
 
 export const getActionsHistoryUrl = () =>
   foremanUrl(
-    '/foreman_tasks/tasks?search=action++%3D++ForemanInventoryUpload%3A%3AAsync%3A%3AGenerateReportJob+or+action++%3D++ForemanInventoryUpload%3A%3AAsync%3A%3AGenerateAllReportsJob&page=1'
+    '/foreman_tasks/tasks?search=label+%3D+ForemanInventoryUpload%3A%3AAsync%3A%3AGenerateReportJob+or+label+%3D+ForemanInventoryUpload%3A%3AAsync%3A%3AGenerateAllReportsJob&page=1'
   );
 
 export const isExitCodeLoading = exitCode => {
