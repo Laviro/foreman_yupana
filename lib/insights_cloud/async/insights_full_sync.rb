@@ -121,7 +121,6 @@ module InsightsCloud
           likelihood: hit_hash['likelihood'].to_i,
           results_url: hit_hash['results_url'],
           rule_id: to_rule_id(hit_hash['results_url']),
-          is_local_insights_advisor: ::ForemanRhCloud.use_insights_on_premise?,
         }
       end
 

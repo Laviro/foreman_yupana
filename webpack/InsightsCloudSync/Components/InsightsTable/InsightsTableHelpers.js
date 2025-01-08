@@ -6,7 +6,8 @@ export const modifySelectedRows = (
   hits,
   selectedIds,
   showSelectAllAlert,
-  hideHost
+  hideHost,
+  isLocalInsightsAdvisor = false
 ) => {
   if (hits.length === 0) return [];
 
@@ -21,7 +22,6 @@ export const modifySelectedRows = (
         has_playbook,
         results_url,
         solution_url,
-        is_local_insights_advisor,
       }) => {
         const disableCheckbox = !has_playbook;
         const cells = [hostname, title, total_risk, has_playbook, results_url];
@@ -35,7 +35,7 @@ export const modifySelectedRows = (
           selected: selectedIds[id] || (disableCheckbox && showSelectAllAlert),
           recommendationUrl: results_url,
           accessRHUrl: solution_url,
-          isLocalInsightsAdvisor: is_local_insights_advisor,
+          isLocalInsightsAdvisor,
         };
       }
     );
