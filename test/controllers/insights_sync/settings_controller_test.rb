@@ -3,11 +3,11 @@ require 'test_plugin_helper'
 class SettingsControllerTest < ActionController::TestCase
   tests InsightsCloud::SettingsController
   def setup
-    ForemanRhCloud.stubs(:with_insights_on_premise?).returns(false)
+    ForemanRhCloud.stubs(:with_local_advisor_engine?).returns(false)
   end
 
   test 'should return error if insights on premise' do
-    ForemanRhCloud.stubs(:with_insights_on_premise?).returns(true)
+    ForemanRhCloud.stubs(:with_local_advisor_engine?).returns(true)
 
     get :show, session: set_session_user
 

@@ -113,7 +113,7 @@ module ForemanRhCloud
             url: '/foreman_rh_cloud/inventory_upload',
             url_hash: { controller: :react, action: :index },
             parent: :configure_menu,
-            if: -> { !ForemanRhCloud.with_insights_on_premise? }
+            if: -> { !ForemanRhCloud.with_local_advisor_engine? }
           menu :top_menu, :insights_hits, caption: N_('Recommendations'), url: '/foreman_rh_cloud/insights_cloud', url_hash: { controller: :react, action: :index }, parent: :configure_menu
 
           register_facet InsightsFacet, :insights do
@@ -200,7 +200,7 @@ module ForemanRhCloud
     end
   end
 
-  def self.with_insights_on_premise?
-    SETTINGS&.[](:insights)&.[](:use_insights_on_premise) || false
+  def self.with_local_advisor_engine?
+    SETTINGS&.[](:foreman_rh_cloud)&.[](:use_local_advisor_engine) || false
   end
 end
