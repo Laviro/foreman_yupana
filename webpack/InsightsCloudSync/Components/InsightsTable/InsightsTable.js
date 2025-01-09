@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TableHeader, TableBody } from '@patternfly/react-table';
 import { useForemanSettings } from 'foremanReact/Root/Context/ForemanContext';
@@ -12,7 +12,6 @@ import TableEmptyState from '../../../common/table/EmptyState';
 import { modifySelectedRows, getSortColumnIndex } from './InsightsTableHelpers';
 import Pagination from './Pagination';
 import './table.scss';
-import { InsightsConfigContext } from '../../InsightsCloudSync';
 
 const InsightsTable = ({
   page,
@@ -38,7 +37,6 @@ const InsightsTable = ({
   const perPage = urlPerPage || appPerPage;
   const [rows, setRows] = React.useState([]);
   const [columns, setColumns] = React.useState(defaultColumns);
-  const { isLocalInsightsAdvisor } = useContext(InsightsConfigContext);
 
   // acts as componentDidMount
   useEffect(() => {
@@ -47,13 +45,7 @@ const InsightsTable = ({
 
   useEffect(() => {
     setRows(
-      modifySelectedRows(
-        hits,
-        selectedIds,
-        showSelectAllAlert,
-        hideHost,
-        isLocalInsightsAdvisor
-      )
+      modifySelectedRows(hits, selectedIds, showSelectAllAlert, hideHost)
     );
 
     if (hideHost) setColumns(getColumnsWithoutHostname());
