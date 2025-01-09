@@ -3,17 +3,27 @@ require 'cgi'
 require 'uri'
 
 module ForemanRhCloud
+  def self.on_premise_url
+    return unless ForemanRhCloud.with_insights_on_premise?
+    port = ENV['INSIGHTS_ADVISOR_PORT'] || "8000"
+    "http://#{ForemanRhCloud.foreman_host.fqdn || 'localhost'}:#{port}"
+  end
+
+  def self.env_or_on_premise_url(env_var_name)
+    ENV[env_var_name] || on_premise_url
+  end
+
   def self.base_url
     # for testing set ENV to 'https://ci.cloud.redhat.com'
-    @base_url ||= ENV['SATELLITE_RH_CLOUD_URL'] || 'https://cloud.redhat.com'
+    @base_url ||= env_or_on_premise_url('SATELLITE_RH_CLOUD_URL') || 'https://cloud.redhat.com'
   end
 
   def self.cert_base_url
-    @cert_base_url ||= ENV['SATELLITE_CERT_RH_CLOUD_URL'] || 'https://cert.cloud.redhat.com'
+    @cert_base_url ||= env_or_on_premise_url('SATELLITE_CERT_RH_CLOUD_URL') || 'https://cert.cloud.redhat.com'
   end
 
   def self.legacy_insights_url
-    @legacy_insights_url ||= ENV['SATELLITE_LEGACY_INSIGHTS_URL'] || 'https://cert-api.access.redhat.com'
+    @legacy_insights_url ||= env_or_on_premise_url('SATELLITE_LEGACY_INSIGHTS_URL') || 'https://cert-api.access.redhat.com'
   end
 
   def self.verify_ssl_method
