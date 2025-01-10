@@ -1,14 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { translate as __ } from 'foremanReact/common/I18n';
 import { Dropdown, DropdownItem, KebabToggle } from '@patternfly/react-core';
 import { ExternalLinkAltIcon } from '@patternfly/react-icons';
 import { redHatAdvisorSystems } from '../InsightsCloudSyncHelpers';
-import { InsightsConfigContext } from '../InsightsCloudSync';
+import { useAdvisorEngineConfig } from '../../common/Hooks/ConfigHooks';
 
 const ToolbarDropdown = ({ onRecommendationSync }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { isLocalInsightsAdvisor } = useContext(InsightsConfigContext);
+  const isLocalAdvisorEngine = useAdvisorEngineConfig();
   const baseItems = [
     <DropdownItem
       key="recommendation-manual-sync"
@@ -30,7 +30,7 @@ const ToolbarDropdown = ({ onRecommendationSync }) => {
       </a>
     </DropdownItem>,
   ];
-  const dropdownItems = isLocalInsightsAdvisor
+  const dropdownItems = isLocalAdvisorEngine
     ? baseItems
     : baseItems.concat(cloudItems);
   return (

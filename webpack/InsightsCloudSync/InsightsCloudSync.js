@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import PageLayout from 'foremanReact/routes/common/PageLayout/PageLayout';
 import InsightsHeader from './Components/InsightsHeader';
@@ -13,10 +13,7 @@ import Pagination from './Components/InsightsTable/Pagination';
 import ToolbarDropdown from './Components/ToolbarDropdown';
 import InsightsSettings from './Components/InsightsSettings';
 
-export const InsightsConfigContext = React.createContext();
-
 const InsightsCloudSync = ({ syncInsights, query, fetchInsights }) => {
-  const [isLocalInsightsAdvisor, setIsLocalInsightsAdvisor] = useState(false);
   const onRecommendationSync = () => syncInsights(fetchInsights, query);
   const toolbarButtons = (
     <>
@@ -32,22 +29,18 @@ const InsightsCloudSync = ({ syncInsights, query, fetchInsights }) => {
 
   return (
     <div className="rh-cloud-insights">
-      <InsightsConfigContext.Provider
-        value={{ isLocalInsightsAdvisor, setIsLocalInsightsAdvisor }}
+      <InsightsSettings />
+      <PageLayout
+        searchable
+        searchProps={INSIGHTS_SEARCH_PROPS}
+        onSearch={nextQuery => fetchInsights({ query: nextQuery, page: 1 })}
+        header={INSIGHTS_SYNC_PAGE_TITLE}
+        toolbarButtons={toolbarButtons}
+        searchQuery={query}
+        beforeToolbarComponent={<InsightsHeader />}
       >
-        <InsightsSettings />
-        <PageLayout
-          searchable
-          searchProps={INSIGHTS_SEARCH_PROPS}
-          onSearch={nextQuery => fetchInsights({ query: nextQuery, page: 1 })}
-          header={INSIGHTS_SYNC_PAGE_TITLE}
-          toolbarButtons={toolbarButtons}
-          searchQuery={query}
-          beforeToolbarComponent={<InsightsHeader />}
-        >
-          <InsightsTable />
-        </PageLayout>
-      </InsightsConfigContext.Provider>
+        <InsightsTable />
+      </PageLayout>
     </div>
   );
 };

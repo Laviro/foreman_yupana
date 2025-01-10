@@ -1,34 +1,21 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { translate as __ } from 'foremanReact/common/I18n';
 import SwitcherPF4 from '../../../common/Switcher/SwitcherPF4';
-import { InsightsConfigContext } from '../../InsightsCloudSync';
 import './insightsSettings.scss';
+import { useAdvisorEngineConfig } from '../../../common/Hooks/ConfigHooks';
 
 const InsightsSettings = ({
   insightsSyncEnabled,
   getInsightsSyncSettings,
   setInsightsSyncEnabled,
 }) => {
-  const { isLocalInsightsAdvisor, setIsLocalInsightsAdvisor } = useContext(
-    InsightsConfigContext
-  );
+  const isLocalAdvisorEngine = useAdvisorEngineConfig();
   useEffect(() => {
-    async function fetchData() {
-      try {
-        await getInsightsSyncSettings();
-      } catch (err) {
-        if (err.cause?.response?.status === 422) {
-          setIsLocalInsightsAdvisor(true);
-        } else {
-          throw err;
-        }
-      }
-    }
-    fetchData();
-  }, [getInsightsSyncSettings, setIsLocalInsightsAdvisor]);
+    getInsightsSyncSettings();
+  }, [getInsightsSyncSettings]);
 
-  if (isLocalInsightsAdvisor) return null;
+  if (isLocalAdvisorEngine) return null;
 
   return (
     <div className="insights_settings">

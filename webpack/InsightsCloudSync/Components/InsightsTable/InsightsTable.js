@@ -12,6 +12,7 @@ import TableEmptyState from '../../../common/table/EmptyState';
 import { modifySelectedRows, getSortColumnIndex } from './InsightsTableHelpers';
 import Pagination from './Pagination';
 import './table.scss';
+import { useAdvisorEngineConfig } from '../../../common/Hooks/ConfigHooks';
 
 const InsightsTable = ({
   page,
@@ -43,9 +44,17 @@ const InsightsTable = ({
     fetchInsights({ page, perPage, query, sortBy, sortOrder });
   }, [hostname]);
 
+  const isLocalAdvisorEngine = useAdvisorEngineConfig();
+
   useEffect(() => {
     setRows(
-      modifySelectedRows(hits, selectedIds, showSelectAllAlert, hideHost)
+      modifySelectedRows(
+        hits,
+        selectedIds,
+        showSelectAllAlert,
+        hideHost,
+        isLocalAdvisorEngine
+      )
     );
 
     if (hideHost) setColumns(getColumnsWithoutHostname());

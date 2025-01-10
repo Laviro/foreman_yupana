@@ -62,8 +62,8 @@ Rails.application.routes.draw do
 
       namespace 'rh_cloud' do
         post 'enable_connector', to: 'inventory#enable_cloud_connector'
-
         post 'cloud_request', to: 'cloud_request#update'
+        get 'advisor_engine_config', to: 'advisor_engine_config#show'
       end
     end
   end

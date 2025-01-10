@@ -1,12 +1,6 @@
 module InsightsCloud
   class SettingsController < ::ApplicationController
     def show
-      if ForemanRhCloud.with_local_advisor_engine?
-        render json: {
-          error: _('This Foreman is configured to use Insights on Premise. Syncing to Insights Cloud is disabled.'),
-        }, status: :unprocessable_entity
-        return
-      end
       render_setting(:insightsSyncEnabled, :allow_auto_insights_sync)
     end
 
