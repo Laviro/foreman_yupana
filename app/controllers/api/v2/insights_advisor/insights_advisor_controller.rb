@@ -6,7 +6,7 @@ module Api
         include Foreman::Controller::SmartProxyAuth
         add_smart_proxy_filters [:upload_hits]
 
-        api :PATCH, "insights_advisor/upload_hits", N_("Upload from insights advisor")
+        api :PATCH, "/insights_advisor/upload_hits", N_("Upload from insights advisor")
         param :host_name, String, required: true
         param :host_uuid, String, required: true
 
