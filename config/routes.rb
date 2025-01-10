@@ -60,9 +60,12 @@ Rails.application.routes.draw do
         end
       end
 
+      namespace 'insights_advisor' do
+        patch 'upload_hits', to: 'insights_advisor#upload_hits'
+      end
+
       namespace 'rh_cloud' do
         post 'enable_connector', to: 'inventory#enable_cloud_connector'
-
         post 'cloud_request', to: 'cloud_request#update'
       end
     end
