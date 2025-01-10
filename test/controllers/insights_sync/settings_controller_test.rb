@@ -2,6 +2,19 @@ require 'test_plugin_helper'
 
 class SettingsControllerTest < ActionController::TestCase
   tests InsightsCloud::SettingsController
+  def setup
+    ForemanRhCloud.stubs(:with_local_advisor_engine?).returns(false)
+  end
+
+  test 'should return error if insights on premise' do
+    ForemanRhCloud.stubs(:with_local_advisor_engine?).returns(true)
+
+    get :show, session: set_session_user
+
+    assert_response :unprocessable_entity
+    actual = JSON.parse(response.body)
+    assert_equal 'This Foreman is configured to use Insights on Premise. Syncing to Insights Cloud is disabled.', actual['error']
+  end
 
   test 'should return allow_auto_insights_sync setting' do
     Setting[:allow_auto_insights_sync] = false

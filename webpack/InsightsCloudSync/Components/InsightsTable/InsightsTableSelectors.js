@@ -6,7 +6,7 @@ import {
   selectAPIStatus,
   selectAPIErrorMessage,
 } from 'foremanReact/redux/API/APISelectors';
-import { INSIGHTS_HITS_API_KEY } from './InsightsTableConstants';
+import { ADVISOR_ENGINE_CONFIG_KEY, INSIGHTS_HITS_API_KEY } from './InsightsTableConstants';
 import { selectInsightsCloudSync } from '../../../ForemanRhCloudSelectors';
 
 export const selectQuery = state => selectRouterLocation(state).query;

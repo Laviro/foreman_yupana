@@ -31,10 +31,11 @@ export const hasPlaybookFormatter = ({ title: hasPlaybook }) => ({
 });
 
 export const actionsFormatter = (props, { rowData = {} }) => {
-  const { recommendationUrl, accessRHUrl } = rowData;
+  const { recommendationUrl, accessRHUrl, isLocalAdvisorEngine } = rowData;
   const dropdownItems = [];
 
   recommendationUrl &&
+    !isLocalAdvisorEngine &&
     dropdownItems.push(
       <DropdownItem key="recommendation-url">
         <a href={recommendationUrl} target="_blank" rel="noopener noreferrer">
@@ -120,5 +121,11 @@ export const INSIGHTS_SET_SELECTED_IDS = 'INSIGHTS_SET_SELECTED_IDS';
 export const INSIGHTS_SET_SELECT_ALL_ALERT = 'INSIGHTS_SET_SELECT_ALL_ALERT';
 
 export const INSIGHTS_SET_SELECT_ALL = 'INSIGHTS_SET_SELECT_ALL';
+
+export const ADVISOR_ENGINE_CONFIG_KEY = 'ADVISOR_ENGINE_CONFIG';
+
+export const ADVISOR_ENGINE_CONFIG_PATH = foremanUrl(
+  '/api/v2/rh_cloud/advisor_engine_config'
+);
 
 export const NEW_HOST_PATH = '/new/hosts/';

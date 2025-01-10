@@ -6,7 +6,8 @@ export const modifySelectedRows = (
   hits,
   selectedIds,
   showSelectAllAlert,
-  hideHost
+  hideHost,
+  isLocalAdvisorEngine
 ) => {
   if (hits.length === 0) return [];
 
@@ -34,6 +35,7 @@ export const modifySelectedRows = (
           selected: selectedIds[id] || (disableCheckbox && showSelectAllAlert),
           recommendationUrl: results_url,
           accessRHUrl: solution_url,
+          isLocalAdvisorEngine,
         };
       }
     );

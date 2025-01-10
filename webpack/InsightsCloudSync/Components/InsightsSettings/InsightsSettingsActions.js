@@ -19,7 +19,8 @@ export const getInsightsSyncSettings = () => async dispatch => {
         },
       },
     });
-  } catch ({ message }) {
+  } catch (err) {
+    const { message } = err;
     dispatch(
       addToast({
         sticky: true,
